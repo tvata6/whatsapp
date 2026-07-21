@@ -1,40 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8">
-    <title>WhatsApp Redirect</title>
+    <title>جاري التحويل إلى واتساب...</title>
+    <meta name="robots" content="noindex">
+  </head>
+  <body>
+    <p id="msg">يتم تحويلك إلى واتساب...</p>
+    <!-- رابط احتياطي يظهر لو التحويل التلقائي ما اشتغل (بعض المتصفحات الداخلية تمنعه) -->
+    <p><a id="fallbackLink" href="#">اضغط هنا إذا لم يتم تحويلك تلقائيًا</a></p>
+
     <script>
       // رقمك بدون +
       const phone = "905324328063";
 
-      // الرسائل حسب الاهتمام
-      const messages = {
-        general:   "أنا مهتم بخدمات شركتكم السياحية في تركيا وأرغب بمعرفة التفاصيل",
-        family:    "هل توجد عروض سياحية للعائلات؟",
-        cities:    "هل يمكنكم تزويدي ببرامج سياحية تشمل أهم المدن التركية؟",
-        airport:   "هل تقدمون استقبال من المطار؟",
-        istanbul:  "أريد حجز جولة داخل إسطنبول",
-        trips:     "أودّ الاستفسار عن خدماتكم في تنظيم الرحلات داخل تركيا",
-        offers:    "هل لديكم عروض أو باقات سياحية حاليًا يمكنني الاستفادة منها؟",
-        driver:    "أحتاج إلى برنامج سياحي شامل مع سائق خاص، هل هذا متوفر؟",
-        hotels:    "هل تقدمون حجوزات فنادق مع البرامج السياحية؟",
-        honeymoon: "أبحث عن برنامج شهر عسل في تركيا، هل لديكم خيارات مناسبة؟"
-      };
+      // الرسائل المتاحة
+      const messages = [
+        "أنا مهتم بخدمات شركتكم السياحية في تركيا وأرغب بمعرفة التفاصيل",
+        "هل توجد عروض سياحية للعائلات؟",
+        "هل يمكنكم تزويدي ببرامج سياحية تشمل أهم المدن التركية؟",
+        "هل تقدمون استقبال من المطار؟",
+        "أريد حجز جولة داخل إسطنبول",
+        "أودّ الاستفسار عن خدماتكم في تنظيم الرحلات داخل تركيا",
+        "هل لديكم عروض أو باقات سياحية حاليًا يمكنني الاستفادة منها؟",
+        "أرغب بالحصول على جدول سياحي مقترح يناسب العائلات",
+        "أحتاج إلى برنامج سياحي شامل مع سائق خاص، هل هذا متوفر؟",
+        "هل تقدمون حجوزات فنادق مع البرامج السياحية؟",
+        "أبحث عن برنامج شهر عسل في تركيا، هل لديكم خيارات مناسبة؟"
+      ];
 
-      // قراءة نوع الاهتمام من الرابط، مثال:
-      // https://yoursite.com/redirect.html?type=family
-      const params = new URLSearchParams(window.location.search);
-      const type = params.get("type");
+      // اختيار رسالة عشوائية مختلفة في كل زيارة
+      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      const encodedMessage = encodeURIComponent(randomMessage);
+      const waUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
 
-      // اختيار الرسالة المطابقة، أو رسالة عامة إن لم يُحدَّد نوع
-      const message = messages[type] || messages.general;
-      const encodedMessage = encodeURIComponent(message);
+      // تجهيز الرابط الاحتياطي بنفس الرسالة (لو التحويل التلقائي فشل)
+      document.getElementById("fallbackLink").href = waUrl;
 
-      // تحويل مباشر إلى واتساب بدون عرض أي صفحة
-      window.location.href = `https://wa.me/${phone}?text=${encodedMessage}`;
+      // تحويل مباشر
+      window.location.href = waUrl;
     </script>
-  </head>
-  <body>
-    <p>يتم تحويلك إلى واتساب...</p>
   </body>
 </html>
