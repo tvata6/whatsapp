@@ -1,92 +1,130 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8">
-    <title>جاري التحويل إلى واتساب...</title>
-    <meta name="robots" content="noindex">
-    <!-- Google tag (gtag.js) -->
+<head>
+<meta charset="UTF-8">
+<title>جاري التحويل إلى واتساب...</title>
+<meta name="robots" content="noindex">
+
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VN2NM26S5R"></script>
+
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
 
-  gtag('js', new Date());
+const params = new URLSearchParams(window.location.search);
 
-  gtag('config', 'G-VN2NM26S5R');
+const campaignSource = params.get("utm_source") || "direct";
+const campaignMedium = params.get("utm_medium") || "none";
+const campaignName = params.get("utm_campaign") || "unknown";
+
+gtag('js', new Date());
+
+gtag('config', 'G-VN2NM26S5R', {
+  campaign_source: campaignSource,
+  campaign_medium: campaignMedium,
+  campaign_name: campaignName
+});
 </script>
-    
-  </head>
-  <body>
-    <!-- هذا القسم مخفي افتراضيًا، ولا يظهر إلا إذا فشل التحويل التلقائي -->
-    <div id="fallback" style="display:none">
-      <p id="msg">يتم تحويلك إلى واتساب...</p>
-      <p><a id="fallbackLink" href="#">اضغط هنا إذا لم يتم تحويلك تلقائيًا</a></p>
-    </div>
 
-    <script>
-      // رقمك بدون +
-      const phone = "905324328063";
+</head>
 
-      // الرسائل المتاحة
-      const messages = [
-        "أنا مهتم بخدمات شركتكم السياحية في تركيا وأرغب بمعرفة التفاصيل",
-        "هل توجد عروض سياحية للعائلات؟",
-        "هل يمكنكم تزويدي ببرامج سياحية تشمل أهم المدن التركية؟",
-        "هل تقدمون استقبال من المطار؟",
-        "أريد حجز جولة داخل إسطنبول",
-        "أودّ الاستفسار عن خدماتكم في تنظيم الرحلات داخل تركيا",
-        "هل لديكم عروض أو باقات سياحية حاليًا يمكنني الاستفادة منها؟",
-        "أرغب بالحصول على جدول سياحي مقترح يناسب العائلات",
-        "أحتاج إلى برنامج سياحي شامل مع سائق خاص، هل هذا متوفر؟",
-        "هل تقدمون حجوزات فنادق مع البرامج السياحية؟",
-        "أبحث عن برنامج شهر عسل في تركيا، هل لديكم خيارات مناسبة؟"
-      ];
+<body>
 
-      // اختيار رسالة عشوائية مختلفة في كل زيارة
-      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-      const encodedMessage = encodeURIComponent(randomMessage);
-      const waUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
-      
-      // تسجيل حدث فتح واتساب في Google Analytics
-// تجهيز الرابط الاحتياطي بنفس الرسالة
+<div id="fallback" style="display:none;text-align:center;font-family:Arial;padding:30px;">
+<h2>يتم تحويلك إلى واتساب...</h2>
+
+<p>
+إذا لم يتم التحويل تلقائياً
+</p>
+
+<a id="fallbackLink" href="#">
+اضغط هنا
+</a>
+
+</div>
+
+<script>
+
+// رقم الواتساب
+const phone = "905324328063";
+
+// الرسائل
+const messages = [
+"أنا مهتم بخدمات شركتكم السياحية في تركيا وأرغب بمعرفة التفاصيل",
+"هل توجد عروض سياحية للعائلات؟",
+"هل يمكنكم تزويدي ببرامج سياحية تشمل أهم المدن التركية؟",
+"هل تقدمون استقبال من المطار؟",
+"أريد حجز جولة داخل إسطنبول",
+"أودّ الاستفسار عن خدماتكم في تنظيم الرحلات داخل تركيا",
+"هل لديكم عروض أو باقات سياحية حاليًا يمكنني الاستفادة منها؟",
+"أرغب بالحصول على جدول سياحي مقترح يناسب العائلات",
+"أحتاج إلى برنامج سياحي شامل مع سائق خاص، هل هذا متوفر؟",
+"هل تقدمون حجوزات فنادق مع البرامج السياحية؟",
+"أبحث عن برنامج شهر عسل في تركيا، هل لديكم خيارات مناسبة؟"
+];
+
+// اختيار رسالة عشوائية
+const randomMessage =
+messages[Math.floor(Math.random()*messages.length)];
+
+const encodedMessage =
+encodeURIComponent(randomMessage);
+
+const waUrl =
+`https://wa.me/${phone}?text=${encodedMessage}`;
+
+// الرابط الاحتياطي
 document.getElementById("fallbackLink").href = waUrl;
 
-// قراءة معلومات الحملة من الرابط
-const params = new URLSearchParams(window.location.search);
-const source = params.get("utm_source") || "direct";
-const medium = params.get("utm_medium") || "none";
-const campaign = params.get("utm_campaign") || "unknown";
-
-// منع التحويل أكثر من مرة
+// منع الفتح مرتين
 let redirected = false;
 
-function openWhatsApp() {
-  if (redirected) return;
-  redirected = true;
-  window.location.href = waUrl;
+function openWhatsApp(){
+
+    if(redirected) return;
+
+    redirected = true;
+
+    window.location.href = waUrl;
+
 }
 
-// تسجيل الحدث أولًا ثم فتح واتساب
-if (typeof gtag === "function") {
-  gtag("event", "whatsapp_open", {
-    source: source,
-    medium: medium,
-    campaign: campaign,
-    transport_type: "beacon",
-    event_callback: openWhatsApp
-  });
+// تسجيل حدث
+if(typeof gtag==="function"){
 
-  // فتح واتساب حتى لو تأخر Google Analytics
-  setTimeout(openWhatsApp, 700);
-} else {
-  openWhatsApp();
+    gtag("event","whatsapp_open",{
+
+        source:campaignSource,
+
+        medium:campaignMedium,
+
+        campaign:campaignName,
+
+        transport_type:"beacon",
+
+        event_callback:openWhatsApp
+
+    });
+
+    // في حال لم يستجب callback
+    setTimeout(openWhatsApp,1500);
+
+}
+else{
+
+    openWhatsApp();
+
 }
 
-      // إذا لم يتم تحويل المتصفح فعليًا خلال ثانيتين (يحدث أحيانًا داخل
-      // متصفح إنستغرام/فيسبوك الداخلي)، نظهر رسالة ورابط بديل يدوي
-      setTimeout(function () {
-        document.getElementById("fallback").style.display = "block";
-      }, 2000);
-    </script>
-  </body>
+// إظهار الرابط اليدوي بعد 3 ثوان
+setTimeout(function(){
+
+document.getElementById("fallback").style.display="block";
+
+},3000);
+
+</script>
+
+</body>
 </html>
