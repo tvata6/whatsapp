@@ -6,9 +6,11 @@
     <meta name="robots" content="noindex">
   </head>
   <body>
-    <p id="msg">يتم تحويلك إلى الواتساب للتواصل معنا...</p>
-    <!-- رابط احتياطي يظهر لو التحويل التلقائي ما اشتغل (بعض المتصفحات الداخلية تمنعه) -->
-    <p><a id="fallbackLink" href="#">اضغط هنا إذا لم يتم تحويلك تلقائيًا</a></p>
+    <!-- هذا القسم مخفي افتراضيًا، ولا يظهر إلا إذا فشل التحويل التلقائي -->
+    <div id="fallback" style="display:none">
+      <p id="msg">يتم تحويلك إلى واتساب...</p>
+      <p><a id="fallbackLink" href="#">اضغط هنا إذا لم يتم تحويلك تلقائيًا</a></p>
+    </div>
 
     <script>
       // رقمك بدون +
@@ -37,8 +39,14 @@
       // تجهيز الرابط الاحتياطي بنفس الرسالة (لو التحويل التلقائي فشل)
       document.getElementById("fallbackLink").href = waUrl;
 
-      // تحويل مباشر
+      // تحويل مباشر وفوري (هذا ما يشوفه الزائر عادةً)
       window.location.href = waUrl;
+
+      // إذا لم يتم تحويل المتصفح فعليًا خلال ثانيتين (يحدث أحيانًا داخل
+      // متصفح إنستغرام/فيسبوك الداخلي)، نظهر رسالة ورابط بديل يدوي
+      setTimeout(function () {
+        document.getElementById("fallback").style.display = "block";
+      }, 2000);
     </script>
   </body>
 </html>
