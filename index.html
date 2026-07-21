@@ -48,19 +48,39 @@
       const waUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
       
       // تسجيل حدث فتح واتساب في Google Analytics
-if (typeof gtag === "function") {
-  gtag("event", "whatsapp_open", {
-    source: new URLSearchParams(window.location.search).get("utm_source") || "direct",
-    medium: new URLSearchParams(window.location.search).get("utm_medium") || "none",
-    campaign: new URLSearchParams(window.location.search).get("utm_campaign") || "unknown"
-  });
+// تجهيز الرابط الاحتياطي بنفس الرسالة
+document.getElementById("fallbackLink").href = waUrl;
+
+// قراءة معلومات الحملة من الرابط
+const params = new URLSearchParams(window.location.search);
+const source = params.get("utm_source") || "direct";
+const medium = params.get("utm_medium") || "none";
+const campaign = params.get("utm_campaign") || "unknown";
+
+// منع التحويل أكثر من مرة
+let redirected = false;
+
+function openWhatsApp() {
+  if (redirected) return;
+  redirected = true;
+  window.location.href = waUrl;
 }
 
-      // تجهيز الرابط الاحتياطي بنفس الرسالة (لو التحويل التلقائي فشل)
-      document.getElementById("fallbackLink").href = waUrl;
+// تسجيل الحدث أولًا ثم فتح واتساب
+if (typeof gtag === "function") {
+  gtag("event", "whatsapp_open", {
+    source: source,
+    medium: medium,
+    campaign: campaign,
+    transport_type: "beacon",
+    event_callback: openWhatsApp
+  });
 
-      // تحويل مباشر وفوري (هذا ما يشوفه الزائر عادةً)
-      window.location.href = waUrl;
+  // فتح واتساب حتى لو تأخر Google Analytics
+  setTimeout(openWhatsApp, 700);
+} else {
+  openWhatsApp();
+}
 
       // إذا لم يتم تحويل المتصفح فعليًا خلال ثانيتين (يحدث أحيانًا داخل
       // متصفح إنستغرام/فيسبوك الداخلي)، نظهر رسالة ورابط بديل يدوي
