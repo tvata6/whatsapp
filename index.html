@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <title>جاري التحويل إلى واتساب...</title>
     <meta name="robots" content="noindex">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VN2NM26S5R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('js', new Date());
+
+  gtag('config', 'G-VN2NM26S5R');
+</script>
+    
   </head>
   <body>
     <!-- هذا القسم مخفي افتراضيًا، ولا يظهر إلا إذا فشل التحويل التلقائي -->
@@ -35,6 +46,15 @@
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
       const encodedMessage = encodeURIComponent(randomMessage);
       const waUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+      
+      // تسجيل حدث فتح واتساب في Google Analytics
+if (typeof gtag === "function") {
+  gtag("event", "whatsapp_open", {
+    source: new URLSearchParams(window.location.search).get("utm_source") || "direct",
+    medium: new URLSearchParams(window.location.search).get("utm_medium") || "none",
+    campaign: new URLSearchParams(window.location.search).get("utm_campaign") || "unknown"
+  });
+}
 
       // تجهيز الرابط الاحتياطي بنفس الرسالة (لو التحويل التلقائي فشل)
       document.getElementById("fallbackLink").href = waUrl;
