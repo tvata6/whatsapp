@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>WhatsApp Redirect</title>
+  <head>
+    <meta charset="UTF-8">
+    <title>WhatsApp Redirect</title>
+    <script>
+      // رقمك بدون +
+      const phone = "905324328063";
 
-  <script>
-    // رقم الواتساب بدون +
-    const phone = "905324328063";
+      // الرسائل حسب الاهتمام
+      const messages = {
+        general:   "أنا مهتم بخدمات شركتكم السياحية في تركيا وأرغب بمعرفة التفاصيل",
+        family:    "هل توجد عروض سياحية للعائلات؟",
+        cities:    "هل يمكنكم تزويدي ببرامج سياحية تشمل أهم المدن التركية؟",
+        airport:   "هل تقدمون استقبال من المطار؟",
+        istanbul:  "أريد حجز جولة داخل إسطنبول",
+        trips:     "أودّ الاستفسار عن خدماتكم في تنظيم الرحلات داخل تركيا",
+        offers:    "هل لديكم عروض أو باقات سياحية حاليًا يمكنني الاستفادة منها؟",
+        driver:    "أحتاج إلى برنامج سياحي شامل مع سائق خاص، هل هذا متوفر؟",
+        hotels:    "هل تقدمون حجوزات فنادق مع البرامج السياحية؟",
+        honeymoon: "أبحث عن برنامج شهر عسل في تركيا، هل لديكم خيارات مناسبة؟"
+      };
 
-    // الرسائل
-    const messages = [
-      "أنا مهتم بخدمات شركتكم السياحية في تركيا وأرغب بمعرفة التفاصيل",
-      "هل توجد عروض سياحية للعائلات؟",
-      "هل يمكنكم تزويدي ببرامج سياحية تشمل أهم المدن التركية؟",
-      "هل تقدمون استقبال من المطار؟",
-      "أريد حجز جولة داخل إسطنبول",
-      "أودّ الاستفسار عن خدماتكم في تنظيم الرحلات داخل تركيا",
-      "هل لديكم عروض أو باقات سياحية حاليًا يمكنني الاستفادة منها؟",
-      "أرغب بالحصول على جدول سياحي مقترح يناسب العائلات",
-      "أحتاج إلى برنامج سياحي شامل مع سائق خاص، هل هذا متوفر؟",
-      "هل تقدمون حجوزات فنادق مع البرامج السياحية؟",
-      "أبحث عن برنامج شهر عسل في تركيا، هل لديكم خيارات مناسبة؟"
-    ];
+      // قراءة نوع الاهتمام من الرابط، مثال:
+      // https://yoursite.com/redirect.html?type=family
+      const params = new URLSearchParams(window.location.search);
+      const type = params.get("type");
 
-    // اختيار رسالة عشوائية
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      // اختيار الرسالة المطابقة، أو رسالة عامة إن لم يُحدَّد نوع
+      const message = messages[type] || messages.general;
+      const encodedMessage = encodeURIComponent(message);
 
-    // تشفير الرسالة
-    const encodedMessage = encodeURIComponent(randomMessage);
-
-    // التحويل إلى واتساب
-    window.location.href = `https://wa.me/${phone}?text=${encodedMessage}`;
-  </script>
-
-</head>
-<body>
-  <p>يتم تحويلك إلى واتساب...</p>
-</body>
+      // تحويل مباشر إلى واتساب بدون عرض أي صفحة
+      window.location.href = `https://wa.me/${phone}?text=${encodedMessage}`;
+    </script>
+  </head>
+  <body>
+    <p>يتم تحويلك إلى واتساب...</p>
+  </body>
 </html>
