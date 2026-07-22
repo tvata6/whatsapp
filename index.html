@@ -1,130 +1,562 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>جاري التحويل إلى واتساب...</title>
-<meta name="robots" content="noindex">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="العربية التركية للسياحة — خدمات سياحية متكاملة داخل تركيا من المطار وإلى المطار.">
+  <meta name="theme-color" content="#0E1620">
+  <meta name="robots" content="index,follow">
+  <title>العربية التركية للسياحة</title>
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VN2NM26S5R"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VN2NM26S5R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-VN2NM26S5R");
+  </script>
 
-const params = new URLSearchParams(window.location.search);
+  <style>
+    :root{
+      --night:#0E1620;
+      --night-2:#0B121A;
+      --paper:#FBF7EC;
+      --paper-2:#F3ECD9;
+      --ink:#211F1B;
+      --muted:#736C5A;
+      --dash:#C9BC9A;
+      --stamp-blue:#1F4E79;
+      --stamp-red:#A6382C;
+      --wa:#25D366;
+      --wa-dark:#1DA851;
+    }
 
-const campaignSource = params.get("utm_source") || "direct";
-const campaignMedium = params.get("utm_medium") || "none";
-const campaignName = params.get("utm_campaign") || "unknown";
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+    }
 
-gtag('js', new Date());
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:"IBM Plex Sans Arabic",Tahoma,Arial,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(560px 420px at 50% 0%, rgba(255,255,255,.05), transparent 70%),
+        var(--night);
+      line-height:1.7;
+    }
 
-gtag('config', 'G-VN2NM26S5R', {
-  campaign_source: campaignSource,
-  campaign_medium: campaignMedium,
-  campaign_name: campaignName
-});
-</script>
+    a{ text-decoration:none; color:inherit; }
+    :focus-visible{ outline:3px solid var(--wa); outline-offset:3px; }
 
+    .mono{ font-family:"IBM Plex Mono",monospace; direction:ltr; unicode-bidi:isolate; }
+
+    .wrap{
+      max-width:560px;
+      margin:0 auto;
+      padding:22px 14px 110px;
+    }
+
+    /* ================= ticket ================= */
+    .ticket{
+      position:relative;
+      box-shadow:0 30px 70px rgba(0,0,0,.45), 0 6px 18px rgba(0,0,0,.3);
+      border-radius:22px;
+    }
+
+    .stub{
+      position:relative;
+      background:var(--paper);
+      padding:26px 22px;
+    }
+    .stub:first-child{ border-radius:22px 22px 0 0; }
+    .stub:last-child{ border-radius:0 0 22px 22px; }
+
+    .perf{
+      position:relative;
+      height:0;
+      border-top:2px dashed var(--dash);
+    }
+    .notch{
+      position:absolute;
+      top:-11px;
+      width:22px; height:22px;
+      border-radius:50%;
+      background:var(--night);
+    }
+    .notch.l{ left:-11px; }
+    .notch.r{ right:-11px; }
+
+    .perf.marked{ margin-top:2px; }
+    .perf-mark{
+      position:absolute;
+      top:-14px; left:50%; transform:translateX(-50%);
+      width:28px; height:28px;
+      border-radius:50%;
+      background:var(--paper);
+      border:2px dashed var(--dash);
+      display:grid; place-items:center;
+      color:var(--stamp-blue);
+    }
+    .perf-mark svg{ width:14px; height:14px; }
+
+    /* ================= eyebrow / heading ================= */
+    .eyebrow{
+      display:block;
+      font-family:"IBM Plex Mono",monospace;
+      direction:ltr;
+      text-align:end;
+      unicode-bidi:isolate;
+      font-size:11.5px;
+      letter-spacing:1.5px;
+      color:var(--stamp-blue);
+      font-weight:600;
+      margin-bottom:10px;
+      opacity:.85;
+    }
+
+    h1,h2,h3{
+      font-family:"Cairo",Tahoma,sans-serif;
+      margin:0;
+      color:var(--ink);
+    }
+
+    /* ================= stub 1: header ================= */
+    .route{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:22px;
+      padding-bottom:20px;
+      border-bottom:1px dashed var(--dash);
+    }
+    .route-point{ display:flex; flex-direction:column; gap:2px; }
+    .route-point.end{ text-align:end; align-items:flex-end; }
+    .route-label{ font-size:12px; color:var(--muted); font-weight:500; }
+    .route-city{ font-family:"Cairo"; font-weight:800; font-size:19px; }
+    .route-plane{ color:var(--stamp-blue); flex:0 0 auto; }
+    .route-plane svg{ width:26px; height:26px; transform:scaleX(-1); }
+
+    h1{
+      font-size:clamp(27px,7vw,34px);
+      font-weight:800;
+      line-height:1.32;
+      margin-bottom:12px;
+    }
+    h1 span{ color:var(--stamp-red); }
+
+    .lede{
+      margin:0 0 22px;
+      color:var(--muted);
+      font-size:15.5px;
+    }
+
+    .btn-wa{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:58px;
+      background:var(--wa);
+      color:white;
+      font-family:"Cairo";
+      font-weight:800;
+      font-size:16.5px;
+      border-radius:14px;
+      box-shadow:0 14px 30px rgba(37,211,102,.32);
+      transition:.2s ease;
+      border:none;
+    }
+    .btn-wa:hover{ background:var(--wa-dark); transform:translateY(-2px); }
+    .btn-wa svg{ width:22px; height:22px; flex:0 0 auto; }
+
+    .microcopy{
+      text-align:center;
+      font-size:12.5px;
+      color:var(--muted);
+      margin-top:12px;
+    }
+
+    /* ================= stub 2: fields ================= */
+    .fields{
+      display:flex;
+      gap:0;
+    }
+    .field{
+      flex:1;
+      text-align:center;
+      padding:0 6px;
+      border-inline-start:1px dashed var(--dash);
+    }
+    .field:first-child{ border-inline-start:none; }
+    .field .mono{
+      display:block;
+      font-size:10.5px;
+      color:var(--muted);
+      letter-spacing:1px;
+      margin-bottom:6px;
+      text-align:center;
+    }
+    .field b{ display:block; font-size:14px; font-weight:700; }
+    .field small{ display:block; font-size:11.5px; color:var(--muted); margin-top:2px; }
+
+    /* ================= stub 3: services ================= */
+    h2{ font-size:22px; font-weight:800; margin-bottom:4px; }
+    .stub-sub{ color:var(--muted); font-size:14px; margin-bottom:18px; }
+
+    .items{ display:grid; gap:0; }
+    .item{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      padding:14px 0;
+      border-bottom:1px solid var(--paper-2);
+    }
+    .item:last-child{ border-bottom:none; padding-bottom:0; }
+    .item:first-child{ padding-top:0; }
+
+    .item-num{
+      font-family:"IBM Plex Mono";
+      font-size:13px;
+      font-weight:600;
+      color:var(--stamp-blue);
+      background:var(--paper-2);
+      width:30px; height:30px;
+      border-radius:50%;
+      display:grid; place-items:center;
+      flex:0 0 auto;
+    }
+    .item h3{ font-size:16.5px; margin-bottom:3px; }
+    .item p{ margin:0; font-size:13.5px; color:var(--muted); }
+
+    /* ================= stub 4: stamps ================= */
+    .stamps{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      justify-content:center;
+      padding:6px 0 2px;
+    }
+    .stamp{
+      width:112px; height:112px;
+      border-radius:50%;
+      border:2.5px solid var(--stamp-blue);
+      outline:1px dashed var(--stamp-blue);
+      outline-offset:-6px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
+      text-align:center;
+      padding:8px;
+      color:var(--stamp-blue);
+    }
+    .stamp.red{ border-color:var(--stamp-red); outline-color:var(--stamp-red); color:var(--stamp-red); }
+    .stamp:nth-child(1){ transform:rotate(-7deg); }
+    .stamp:nth-child(2){ transform:rotate(5deg); }
+    .stamp:nth-child(3){ transform:rotate(-3deg); }
+    .stamp svg{ width:20px; height:20px; }
+    .stamp span{ font-size:12px; font-weight:700; line-height:1.25; font-family:"Cairo"; }
+
+    /* ================= stub 5: timeline ================= */
+    .timeline{ position:relative; padding-inline-start:34px; }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      inset-inline-start:11px;
+      top:6px; bottom:6px;
+      width:0;
+      border-inline-start:2px dashed var(--dash);
+    }
+    .step{ position:relative; padding-bottom:22px; }
+    .step:last-child{ padding-bottom:0; }
+    .step-dot{
+      position:absolute;
+      inset-inline-start:-34px;
+      top:2px;
+      width:24px; height:24px;
+      border-radius:50%;
+      background:var(--stamp-blue);
+      color:var(--paper);
+      display:grid; place-items:center;
+      font-family:"IBM Plex Mono";
+      font-size:11px;
+      font-weight:600;
+    }
+    .step h3{ font-size:15.5px; margin-bottom:3px; }
+    .step p{ margin:0; font-size:13.5px; color:var(--muted); }
+
+    /* ================= stub 6: final ================= */
+    .final-copy{ text-align:center; margin-bottom:18px; }
+    .final-copy h2{ margin-bottom:8px; }
+    .final-copy p{ margin:0; color:var(--muted); font-size:14.5px; }
+
+    .barcode{
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      gap:2px;
+      height:34px;
+      margin:22px 0 8px;
+      opacity:.55;
+    }
+    .barcode span{ display:block; width:2px; background:var(--ink); }
+
+    .ref{
+      text-align:center;
+      font-size:11px;
+      color:var(--muted);
+      letter-spacing:1px;
+      margin-bottom:20px;
+    }
+
+    .foot{
+      text-align:center;
+      font-size:12.5px;
+      color:var(--muted);
+      padding-top:16px;
+      border-top:1px dashed var(--dash);
+    }
+    .foot strong{
+      display:block;
+      font-family:"Cairo";
+      color:var(--ink);
+      font-size:15.5px;
+      font-weight:800;
+      margin-bottom:3px;
+    }
+
+    /* ================= floating fab ================= */
+    .fab{
+      position:fixed;
+      inset-inline-end:18px;
+      bottom:18px;
+      width:58px; height:58px;
+      border-radius:50%;
+      background:var(--wa);
+      display:grid; place-items:center;
+      box-shadow:0 16px 34px rgba(37,211,102,.4);
+      border:2px solid rgba(255,255,255,.85);
+      z-index:50;
+    }
+    .fab svg{ width:28px; height:28px; }
+
+    @media (min-width:640px){
+      .wrap{ padding:56px 14px 130px; }
+      .stub{ padding:34px 34px; }
+      h1{ font-size:36px; }
+      .stamp{ width:120px; height:120px; }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="wrap">
+    <div class="ticket">
 
-<div id="fallback" style="display:none;text-align:center;font-family:Arial;padding:30px;">
-<h2>يتم تحويلك إلى واتساب...</h2>
+      <!-- STUB 1 — hero / primary action -->
+      <div class="stub">
+        <span class="eyebrow">DIGITAL BOARDING PASS · TR</span>
 
-<p>
-إذا لم يتم التحويل تلقائياً
-</p>
+        <div class="route">
+          <div class="route-point">
+            <span class="route-label">من</span>
+            <span class="route-city">بلدك</span>
+          </div>
+          <div class="route-plane">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V4.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2.5 2v1.5L11 21l3.5 1.5V21L12 19v-5.5z"/></svg>
+          </div>
+          <div class="route-point end">
+            <span class="route-label">إلى</span>
+            <span class="route-city">تركيا</span>
+          </div>
+        </div>
 
-<a id="fallbackLink" href="#">
-اضغط هنا
-</a>
+        <h1>رحلتك تبدأ <span>برسالة واحدة</span></h1>
+        <p class="lede">استقبال من المطار، إقامة مناسبة، سائق خاص وجولات سياحية — كل شيء مرتب قبل ما توصل.</p>
 
-</div>
+        <a class="btn-wa wa-link" href="https://tvata6.github.io/whatsapp?utm_source=snapchat&utm_medium=cpc&utm_campaign=saudi">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.24c-.22.62-1.28 1.19-1.77 1.24-.45.05-1.02.07-1.65-.1-.38-.11-.87-.28-1.5-.55-2.64-1.14-4.36-3.8-4.5-3.98-.13-.18-1.08-1.44-1.08-2.74s.68-1.94.92-2.2c.24-.27.53-.33.7-.33h.5c.16 0 .38-.03.58.44s.7 1.7.76 1.82c.06.13.1.28.02.45-.08.18-.12.28-.24.43-.12.15-.25.33-.36.44-.12.12-.24.25-.1.5.13.24.6 1 1.29 1.62.89.79 1.63 1.04 1.87 1.16.24.12.38.1.53-.06.15-.16.62-.72.78-.97.16-.24.32-.2.53-.12.22.08 1.38.65 1.62.77.24.12.4.18.46.28.06.1.06.58-.16 1.2z"/></svg>
+          تواصل معنا الآن عبر واتساب
+        </a>
+        <div class="microcopy">نرد خلال دقائق · بدون أي التزام</div>
+      </div>
 
-<script>
+      <div class="perf"><span class="notch l"></span><span class="notch r"></span></div>
 
-// رقم الواتساب
-const phone = "905324328063";
+      <!-- STUB 2 — ticket fields -->
+      <div class="stub">
+        <div class="fields">
+          <div class="field">
+            <span class="mono">CLASS</span>
+            <b>عائلي وفردي</b>
+            <small>الفئة</small>
+          </div>
+          <div class="field">
+            <span class="mono">ROUTE</span>
+            <b>إسطنبول</b>
+            <small>وضواحيها</small>
+          </div>
+          <div class="field">
+            <span class="mono">CONTACT</span>
+            <b>واتساب</b>
+            <small>مباشر وسريع</small>
+          </div>
+        </div>
+      </div>
 
-// الرسائل
-const messages = [
-"أنا مهتم بخدمات شركتكم السياحية في تركيا وأرغب بمعرفة التفاصيل",
-"هل توجد عروض سياحية للعائلات؟",
-"هل يمكنكم تزويدي ببرامج سياحية تشمل أهم المدن التركية؟",
-"هل تقدمون استقبال من المطار؟",
-"أريد حجز جولة داخل إسطنبول",
-"أودّ الاستفسار عن خدماتكم في تنظيم الرحلات داخل تركيا",
-"هل لديكم عروض أو باقات سياحية حاليًا يمكنني الاستفادة منها؟",
-"أرغب بالحصول على جدول سياحي مقترح يناسب العائلات",
-"أحتاج إلى برنامج سياحي شامل مع سائق خاص، هل هذا متوفر؟",
-"هل تقدمون حجوزات فنادق مع البرامج السياحية؟",
-"أبحث عن برنامج شهر عسل في تركيا، هل لديكم خيارات مناسبة؟"
-];
+      <div class="perf"><span class="notch l"></span><span class="notch r"></span></div>
 
-// اختيار رسالة عشوائية
-const randomMessage =
-messages[Math.floor(Math.random()*messages.length)];
+      <!-- STUB 3 — services -->
+      <div class="stub" id="services">
+        <span class="eyebrow">SERVICES</span>
+        <h2>ما يشمله برنامجك</h2>
+        <p class="stub-sub">خدمات واضحة ومتكاملة، بدون تعقيد.</p>
 
-const encodedMessage =
-encodeURIComponent(randomMessage);
+        <div class="items">
+          <div class="item">
+            <span class="item-num">01</span>
+            <div>
+              <h3>الاستقبال والتوصيل</h3>
+              <p>استقبال من مطارات إسطنبول وتوصيل مريح إلى مكان إقامتك.</p>
+            </div>
+          </div>
+          <div class="item">
+            <span class="item-num">02</span>
+            <div>
+              <h3>الفنادق والشقق</h3>
+              <p>خيارات إقامة تناسب عدد أفراد رحلتك وميزانيتك.</p>
+            </div>
+          </div>
+          <div class="item">
+            <span class="item-num">03</span>
+            <div>
+              <h3>سائق خاص</h3>
+              <p>سيارة خاصة مع سائق يتحدث العربية طوال إقامتك.</p>
+            </div>
+          </div>
+          <div class="item">
+            <span class="item-num">04</span>
+            <div>
+              <h3>الجولات السياحية</h3>
+              <p>برامج إلى إسطنبول، بورصة، سبانجا وأماكن أخرى.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-const waUrl =
-`https://wa.me/${phone}?text=${encodedMessage}`;
+      <div class="perf"><span class="notch l"></span><span class="notch r"></span></div>
 
-// الرابط الاحتياطي
-document.getElementById("fallbackLink").href = waUrl;
+      <!-- STUB 4 — trust stamps -->
+      <div class="stub">
+        <span class="eyebrow">TRUSTED</span>
+        <h2>ثقة موثّقة بالختم</h2>
+        <p class="stub-sub">أسباب يثق بها من سافر معنا.</p>
 
-// منع الفتح مرتين
-let redirected = false;
+        <div class="stamps">
+          <div class="stamp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>برنامج واضح</span>
+          </div>
+          <div class="stamp red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>أسعار عادلة</span>
+          </div>
+          <div class="stamp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>متابعة مستمرة</span>
+          </div>
+        </div>
+      </div>
 
-function openWhatsApp(){
+      <div class="perf"><span class="notch l"></span><span class="notch r"></span></div>
 
-    if(redirected) return;
+      <!-- STUB 5 — process timeline -->
+      <div class="stub">
+        <span class="eyebrow">HOW IT WORKS</span>
+        <h2>من الرسالة الأولى حتى الاستقبال</h2>
+        <p class="stub-sub">ثلاث خطوات، ولا شيء أكثر.</p>
 
-    redirected = true;
+        <div class="timeline">
+          <div class="step">
+            <span class="step-dot">1</span>
+            <h3>تواصل معنا</h3>
+            <p>أرسل عدد الأشخاص وتاريخ وصولك عبر واتساب.</p>
+          </div>
+          <div class="step">
+            <span class="step-dot">2</span>
+            <h3>نجهّز برنامجك</h3>
+            <p>نقترح الإقامة والجولات المناسبة لاحتياجك وميزانيتك.</p>
+          </div>
+          <div class="step">
+            <span class="step-dot">3</span>
+            <h3>نستقبلك بالمطار</h3>
+            <p>نكون بانتظارك من لحظة نزولك حتى العودة.</p>
+          </div>
+        </div>
+      </div>
 
-    window.location.href = waUrl;
+      <div class="perf marked">
+        <span class="notch l"></span><span class="notch r"></span>
+        <span class="perf-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9v6M18 9v6M3 12h3m12 0h3M12 3v3m0 12v3"/><circle cx="12" cy="12" r="3"/></svg>
+        </span>
+      </div>
 
-}
+      <!-- STUB 6 — final CTA -->
+      <div class="stub">
+        <div class="final-copy">
+          <h2>جاهز؟ اركب معنا</h2>
+          <p>أرسل رسالة الآن ونبدأ ترتيب رحلتك خلال دقائق.</p>
+        </div>
 
-// تسجيل حدث
-if(typeof gtag==="function"){
+        <a class="btn-wa wa-link" href="https://tvata6.github.io/whatsapp?utm_source=snapchat&utm_medium=cpc&utm_campaign=saudi">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.24c-.22.62-1.28 1.19-1.77 1.24-.45.05-1.02.07-1.65-.1-.38-.11-.87-.28-1.5-.55-2.64-1.14-4.36-3.8-4.5-3.98-.13-.18-1.08-1.44-1.08-2.74s.68-1.94.92-2.2c.24-.27.53-.33.7-.33h.5c.16 0 .38-.03.58.44s.7 1.7.76 1.82c.06.13.1.28.02.45-.08.18-.12.28-.24.43-.12.15-.25.33-.36.44-.12.12-.24.25-.1.5.13.24.6 1 1.29 1.62.89.79 1.63 1.04 1.87 1.16.24.12.38.1.53-.06.15-.16.62-.72.78-.97.16-.24.32-.2.53-.12.22.08 1.38.65 1.62.77.24.12.4.18.46.28.06.1.06.58-.16 1.2z"/></svg>
+          ابدأ المحادثة عبر واتساب
+        </a>
 
-    gtag("event","whatsapp_open",{
+        <div class="barcode" aria-hidden="true">
+          <span style="height:100%"></span><span style="height:60%"></span><span style="height:85%"></span><span style="height:45%"></span><span style="height:100%"></span><span style="height:70%"></span><span style="height:55%"></span><span style="height:90%"></span><span style="height:40%"></span><span style="height:100%"></span><span style="height:65%"></span><span style="height:80%"></span><span style="height:50%"></span><span style="height:95%"></span><span style="height:60%"></span><span style="height:100%"></span><span style="height:45%"></span><span style="height:75%"></span><span style="height:100%"></span><span style="height:55%"></span>
+        </div>
+        <div class="ref mono">TR · IST · 2026</div>
 
-        source:campaignSource,
+        <div class="foot">
+          <strong>العربية التركية للسياحة</strong>
+          إسطنبول — تركيا · جميع الحقوق محفوظة © 2026
+        </div>
+      </div>
 
-        medium:campaignMedium,
+    </div>
+  </div>
 
-        campaign:campaignName,
+  <a class="fab wa-link" href="https://tvata6.github.io/whatsapp?utm_source=snapchat&utm_medium=cpc&utm_campaign=saudi" aria-label="تواصل عبر واتساب">
+    <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.24c-.22.62-1.28 1.19-1.77 1.24-.45.05-1.02.07-1.65-.1-.38-.11-.87-.28-1.5-.55-2.64-1.14-4.36-3.8-4.5-3.98-.13-.18-1.08-1.44-1.08-2.74s.68-1.94.92-2.2c.24-.27.53-.33.7-.33h.5c.16 0 .38-.03.58.44s.7 1.7.76 1.82c.06.13.1.28.02.45-.08.18-.12.28-.24.43-.12.15-.25.33-.36.44-.12.12-.24.25-.1.5.13.24.6 1 1.29 1.62.89.79 1.63 1.04 1.87 1.16.24.12.38.1.53-.06.15-.16.62-.72.78-.97.16-.24.32-.2.53-.12.22.08 1.38.65 1.62.77.24.12.4.18.46.28.06.1.06.58-.16 1.2z"/></svg>
+  </a>
 
-        transport_type:"beacon",
-
-        event_callback:openWhatsApp
-
+  <script>
+    document.querySelectorAll(".wa-link").forEach(function(link){
+      link.addEventListener("click", function(){
+        if (typeof gtag === "function") {
+          gtag("event", "whatsapp_click", {
+            source: "snapchat",
+            medium: "cpc",
+            campaign: "saudi",
+            transport_type: "beacon"
+          });
+        }
+      });
     });
-
-    // في حال لم يستجب callback
-    setTimeout(openWhatsApp,1500);
-
-}
-else{
-
-    openWhatsApp();
-
-}
-
-// إظهار الرابط اليدوي بعد 3 ثوان
-setTimeout(function(){
-
-document.getElementById("fallback").style.display="block";
-
-},3000);
-
-</script>
-
+  </script>
 </body>
 </html>
